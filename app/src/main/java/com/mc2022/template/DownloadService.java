@@ -61,6 +61,8 @@ public class DownloadService extends Service {
                 broadcastReceiver = new MyBroadcastReceiver();
                 registerReceiver(broadcastReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
                 registerReceiver(broadcastReceiver, new IntentFilter(Intent.ACTION_POWER_CONNECTED));
+                registerReceiver(broadcastReceiver, new IntentFilter(Intent.ACTION_POWER_DISCONNECTED));
+                registerReceiver(broadcastReceiver, new IntentFilter(Intent.ACTION_BATTERY_OKAY));
 
 
                 String url = filepath + String.valueOf(count) + extension;
@@ -311,6 +313,12 @@ public class DownloadService extends Service {
                 Toast.makeText(context, "Power Connected!", Toast.LENGTH_SHORT).show();
                 //Intent serIntent = new Intent(context, DownloadService.class);
                 stopSelf();
+            }
+            if(Intent.ACTION_POWER_DISCONNECTED.equals(intent.getAction()) &&
+                    Intent.ACTION_BATTERY_OKAY.equals(intent.getAction())){
+                Toast.makeText(context, "Power Disconnected and Battery Okay. Starting Service!", Toast.LENGTH_SHORT).show();
+                //Intent serIntent = new Intent(context, DownloadService.class);
+                context.startService(intent);
             }
             //throw new UnsupportedOperationException("Not yet implemented");
         }

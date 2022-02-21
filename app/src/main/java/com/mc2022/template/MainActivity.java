@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button serviceButton;
     TextView textView;
-    BroadcastReceiver broadcastReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,12 +37,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         serviceButton = findViewById(R.id.serviceStartStopButton);
+        if(isMyServiceRunning(DownloadService.class)){
+            serviceButton.setText(R.string.StopServiceButton);
+        }else{
+            serviceButton.setText(R.string.StartServiceButton);
+        }
 
         //serviceButton.setBackgroundColor(Color.GREEN);
         serviceButton.setOnClickListener(this);
     }
-
-
 
 
     @Override
@@ -62,10 +64,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         serviceButton.setText(R.string.StopServiceButton);
                         serviceButton.setBackgroundColor(Color.RED);
                     }
-                }else {
-                    stopService(new Intent(this, DownloadService.class));
-                    serviceButton.setText(R.string.StartServiceButton);
-                    serviceButton.setBackgroundColor(Color.parseColor("#00AA00"));
                 }
             }
             else if(serviceButton.getText().toString().equals(getString(R.string.StopServiceButton))) {
@@ -74,11 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     serviceButton.setText(R.string.StartServiceButton);
                     serviceButton.setBackgroundColor(Color.parseColor("#00AA00"));
                 }
-                else{
-                    startService(new Intent(this, DownloadService.class));
-                    serviceButton.setText(R.string.StopServiceButton);
-                    serviceButton.setBackgroundColor(Color.RED);
-                }
+
             }
         }
     }
@@ -94,25 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return false;
-    }
-
-
-    private class MyBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // TODO: This method is called when the BroadcastReceiver is receiving
-            // an Intent broadcast.
-
-            if(Intent.ACTION_POWER_DISCONNECTED.equals(intent.getAction()) &&
-                    Intent.ACTION_BATTERY_OKAY.equals(intent.getAction())){
-                Toast.makeText(context, "Power Disconnected and Battery Okay. Starting Service!", Toast.LENGTH_SHORT).show();
-                //Intent serIntent = new Intent(context, DownloadService.class);
-                context.startService(intent);
-            }
-
-            //throw new UnsupportedOperationException("Not yet implemented");
-        }
     }
 
 }
