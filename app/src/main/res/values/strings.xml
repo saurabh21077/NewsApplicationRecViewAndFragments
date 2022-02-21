@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">News Application</string>
+
+    <string name="StartServiceButton">Start Service</string>
+    <string name="StopServiceButton">Stop Service</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">""</string>
 </resources>
