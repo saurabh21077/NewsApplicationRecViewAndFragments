@@ -92,7 +92,7 @@ s
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:inputType="number"
-                android:hint="1/2/3/4/5"/>
+                android:hint="Give rating as a number"/>
 
             <Button
                 android:id="@+id/buttonRating"
