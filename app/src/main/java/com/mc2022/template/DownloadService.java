@@ -49,9 +49,9 @@ public class DownloadService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        player = MediaPlayer.create(this, Settings.System.DEFAULT_ALARM_ALERT_URI);
-        player.setLooping(true);
-        player.start();
+//        player = MediaPlayer.create(this, Settings.System.DEFAULT_ALARM_ALERT_URI);
+//        player.setLooping(true);
+//        player.start();
 
         serThread = new Thread(new Runnable() {
             @Override
@@ -75,12 +75,13 @@ public class DownloadService extends Service {
 
                         if(!fileExist(filename)) {
                             new DownloadWebpageTask().execute(url);
-                            Thread.sleep(2000);
+                            Thread.sleep(10000);
                         }
                         parseJSONObject(accessFile(filename));
-                        displayOnFragment();
+                        //displayOnFragment();
+
                         count++;
-                        Thread.sleep(10000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -130,6 +131,8 @@ public class DownloadService extends Service {
         return super.onStartCommand(intent, flags, startId);
         //return START_STICKY;
     }
+
+
 
     private void displayOnFragment() {
 

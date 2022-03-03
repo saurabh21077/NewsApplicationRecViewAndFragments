@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -35,6 +35,67 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center" />
+
+            <TextView
+                android:id="@+id/textViewCommentHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Comment"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"/>
+s
+            <EditText
+                android:id="@+id/editTextComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Enter Comment" />
+
+            <Button
+                android:id="@+id/buttonComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit Comment" />
+
+            <TextView
+                android:id="@+id/textViewRatingHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Rating"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/editTextRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="1/2/3/4/5"/>
+
+            <Button
+                android:id="@+id/buttonRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit Rating" />
         </LinearLayout>
     </ScrollView>
 

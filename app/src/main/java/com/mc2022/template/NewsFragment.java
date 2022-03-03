@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,18 +33,27 @@ import java.net.URL;
  */
 public class NewsFragment extends Fragment {
 
-    private TextView fragmentTitle;
-    private ImageView fragmentImage;
-    private TextView fragmentBody;
+    public TextView fragmentTitle;
+    public ImageView fragmentImage;
+    public TextView fragmentBody;
+    public EditText editComment;
+    public TextView showComment;
+    public EditText editRating;
+    public TextView showRating;
+    public Button commentButton;
+    public Button ratingButton;
+    private int position;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static String mParam1;
+    private static String mParam2;
+    private static String image_url;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -57,11 +68,17 @@ public class NewsFragment extends Fragment {
      * @return A new instance of fragment NewsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewsFragment newInstance(String param1, String param2) {
+    public static NewsFragment newInstance(String param1, String param2, String image) {
         NewsFragment fragment = new NewsFragment();
         Bundle args = new Bundle();
+
+        mParam1 = param1;
+        mParam2 = param2;
+        image_url = image;
+
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, image);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,14 +89,128 @@ public class NewsFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            image_url = getArguments().getString(ARG_PARAM3);
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_news, container, false);
+
+        editComment = v.findViewById(R.id.editTextComment);
+        editRating = v.findViewById(R.id.editTextRating);
+        showComment = v.findViewById(R.id.textViewComment);
+        showRating = v.findViewById(R.id.textViewRating);
+        commentButton = v.findViewById(R.id.buttonComment);
+        ratingButton = v.findViewById(R.id.buttonRating);
+
+        boolean commentFlag = false;
+        boolean ratingFlag = false;
+        String comment = "";
+        int rating = 0;
+        for(int i=0; i<NewsListFragment.listItems.size(); i++){
+            NewsInfo news = NewsListFragment.listItems.get(i).getNews();
+
+            if(news.getTitle().equals(mParam1)){
+
+                System.out.println("From On Create");
+                System.out.println("News Title from Field :- "+news.getTitle());
+                System.out.println("News Title from fragment :- "+mParam1);
+                System.out.println("Comment = "+ news.getComment());
+                System.out.println("Rating = "+ news.getRating());
+
+                if(news.getComment().equals("")) {
+                    commentFlag = true;
+                }
+                else{
+                    comment = news.getComment();
+                }
+                if(news.getRating() == 0){
+                    ratingFlag = true;
+                }
+                else{
+                    rating = news.getRating();
+                }
+                position = i;
+            }
+        }
+
+        if(commentFlag){
+            editComment.setVisibility(View.VISIBLE);
+            showComment.setVisibility(View.GONE);
+            commentButton.setText("SUBMIT COMMENT");
+        }
+        else{
+            showComment.setText(comment);
+            //NewsListFragment.listItems.get(position).getNews().setComment(String.valueOf(comment));
+            editComment.setVisibility(View.GONE);
+            showComment.setVisibility(View.VISIBLE);
+            showComment.setText(NewsListFragment.listItems.get(position).getNews().getComment());
+            commentButton.setText("EDIT COMMENT");
+
+        }
+        if(ratingFlag){
+            editRating.setVisibility(View.VISIBLE);
+            showRating.setVisibility(View.GONE);
+            ratingButton.setText("SUBMIT RATING");
+        }
+        else{
+            showRating.setText(String.valueOf(rating));
+            //NewsListFragment.listItems.get(position).getNews().setRating(Integer.valueOf(rating));
+            editRating.setVisibility(View.GONE);
+            showRating.setVisibility(View.VISIBLE);
+            showRating.setText(String.valueOf(NewsListFragment.listItems.get(position).getNews().getRating()));
+            ratingButton.setText("EDIT RATING");
+        }
+
+
+        commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(commentButton.getText().equals("SUBMIT COMMENT")){
+                    NewsListFragment.listItems.get(position).getNews().setComment(String.valueOf(editComment.getText()));
+                    showComment.setText(editComment.getText());
+                    editComment.setText("");
+                    editComment.setVisibility(View.GONE);
+                    showComment.setVisibility(View.VISIBLE);
+                    commentButton.setText("EDIT COMMENT");
+                }
+                else if(commentButton.getText().equals("EDIT COMMENT")){
+
+                    editComment.setText(showComment.getText());
+                    showComment.setText("");
+                    showComment.setVisibility(View.GONE);
+                    editComment.setVisibility(View.VISIBLE);
+                    commentButton.setText("SUBMIT COMMENT");
+                }
+            }
+        });
+
+        ratingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ratingButton.getText().equals("SUBMIT RATING")){
+                    NewsListFragment.listItems.get(position).getNews().setRating(Integer.parseInt(editRating.getText().toString()));
+                    showRating.setText(editRating.getText());
+                    editRating.setText("");
+                    editRating.setVisibility(View.GONE);
+                    showRating.setVisibility(View.VISIBLE);
+                    ratingButton.setText("EDIT RATING");
+                }
+                else if(ratingButton.getText().equals("EDIT RATING")){
+                    editRating.setText(showRating.getText());
+                    showRating.setText("");
+                    showRating.setVisibility(View.GONE);
+                    editRating.setVisibility(View.VISIBLE);
+                    ratingButton.setText("SUBMIT RATING");
+                }
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+
+        return v;
     }
 
     @Override
@@ -87,8 +218,93 @@ public class NewsFragment extends Fragment {
         super.onResume();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.my.app");
+
+        View v = getView();
+
+        boolean commentFlag = false;
+        boolean ratingFlag = false;
+        String comment = "";
+        int rating = 0;
+        for(int i=0; i<NewsListFragment.listItems.size(); i++){
+            NewsInfo news = NewsListFragment.listItems.get(i).getNews();
+
+            if(news.getTitle().equals(mParam1)){
+
+                System.out.println("From On Resume");
+                System.out.println("News Title from Field :- "+news.getTitle());
+                System.out.println("News Title from fragment :- "+mParam1);
+                System.out.println("Comment = "+ news.getComment());
+                System.out.println("Rating = "+ news.getRating());
+
+                if(news.getComment().equals("")) {
+                    commentFlag = true;
+                }
+                else{
+                    comment = news.getComment();
+                }
+                if(news.getRating() == 0){
+                    ratingFlag = true;
+                }
+                else{
+                    rating = news.getRating();
+                }
+                position = i;
+            }
+        }
+
+        if(commentFlag){
+            editComment.setVisibility(View.VISIBLE);
+            showComment.setVisibility(View.GONE);
+            commentButton.setText("SUBMIT COMMENT");
+        }
+        else{
+            showComment.setText(comment);
+            //NewsListFragment.listItems.get(position).getNews().setComment(comment);
+            editComment.setVisibility(View.GONE);
+            showComment.setVisibility(View.VISIBLE);
+            showComment.setText(NewsListFragment.listItems.get(position).getNews().getComment());
+            commentButton.setText("EDIT COMMENT");
+
+        }
+        if(ratingFlag){
+            editRating.setVisibility(View.VISIBLE);
+            showRating.setVisibility(View.GONE);
+            ratingButton.setText("SUBMIT RATING");
+        }
+        else{
+            showRating.setText(String.valueOf(rating));
+            //NewsListFragment.listItems.get(position).getNews().setRating(rating);
+            editRating.setVisibility(View.GONE);
+            showRating.setVisibility(View.VISIBLE);
+            showRating.setText(String.valueOf(NewsListFragment.listItems.get(position).getNews().getRating()));
+            ratingButton.setText("EDIT RATING");
+        }
+
+
+
+
+
+
+
+
+
+
+
+        fragmentImage = v.findViewById(R.id.imageView);
+        new ImageLoadTask(image_url, fragmentImage).execute();
+
+        System.out.println("IMAGE URI = "+image_url);
+        System.out.println("Title = "+mParam1);
+        System.out.println("Body = "+mParam2);
+
+        fragmentTitle = v.findViewById(R.id.textViewTitle);// update your textView in the main layout
+        fragmentTitle.setText(mParam1);
+        fragmentBody = v.findViewById(R.id.textViewBody);
+        fragmentBody.setText(mParam2);
+
         getActivity().registerReceiver(new MyBroadcastReceiver(), intentFilter);
     }
+
 
     private class MyBroadcastReceiver extends BroadcastReceiver {
         @Override
@@ -98,7 +314,7 @@ public class NewsFragment extends Fragment {
             String body = extras.getString("body");
             String image = extras.getString("image");
 
-            System.out.println("IMAGE URI = "+image);
+            //System.out.println("IMAGE URI = "+image);
             fragmentImage = getView().findViewById(R.id.imageView);
             new ImageLoadTask(image, fragmentImage).execute();
 
@@ -111,12 +327,13 @@ public class NewsFragment extends Fragment {
     }
 
 
-    public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
+    public static class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
         private String url;
         private ImageView imageView;
 
         public ImageLoadTask(String url, ImageView imageView) {
+            //System.out.println("Got URL : "+url);
             this.url = url;
             this.imageView = imageView;
         }

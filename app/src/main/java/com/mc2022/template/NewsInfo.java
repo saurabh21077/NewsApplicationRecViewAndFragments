@@ -4,11 +4,15 @@ public class NewsInfo {
     private String title;
     private String body;
     private String image_url;
+    private String comment;
+    private int rating;
 
     public NewsInfo(String title, String body, String image_url) {
         this.title = title;
         this.body = body;
         this.image_url = image_url;
+        this.comment = "";
+        this.rating = 0;
     }
 
     public String getTitle() {
@@ -35,12 +39,30 @@ public class NewsInfo {
         this.image_url = image_url;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "NewsInfo{" +
-                "\ntitle='" + title + '\'' +
-                ",\nbody='" + body + '\'' +
-                ",\nimage_url='" + image_url + '\'' +
+                "title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", image_url='" + image_url + '\'' +
+                ", comment='" + comment + '\'' +
+                ", rating=" + rating +
                 '}';
     }
 }
