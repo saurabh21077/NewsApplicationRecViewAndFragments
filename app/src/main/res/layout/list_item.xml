@@ -15,18 +15,19 @@
             android:id="@+id/NewItemBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#D2EDD3"
+            android:background="#DCDCDC"
             android:weightSum="13">
 
             <TextView
                 android:id="@+id/news_number"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00BCD4"
+                android:layout_height="match_parent"
+                android:background="#C8C8C8"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="1"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/news_title"
@@ -36,7 +37,7 @@
                 android:paddingTop="5dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="5dp"
-                android:text="Headline"
+                android:text="Headlinefuuuuuuuuuuuu jyyyyyyyyyyy uuuuuuuuuuuuu uyfffffffffff"
                 android:textSize="20sp" />
 
         </LinearLayout>

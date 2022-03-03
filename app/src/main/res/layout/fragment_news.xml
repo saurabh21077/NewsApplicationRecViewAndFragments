@@ -50,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:visibility="gone"/>
+                android:textSize="20sp"
+                android:visibility="gone" />
 s
             <EditText
                 android:id="@+id/editTextComment"
@@ -64,6 +65,7 @@ s
                 android:id="@+id/buttonComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#323232"
                 android:text="Submit Comment" />
 
             <TextView
@@ -80,7 +82,8 @@ s
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:visibility="gone"/>
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/editTextRating"
@@ -95,6 +98,7 @@ s
                 android:id="@+id/buttonRating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#323232"
                 android:text="Submit Rating" />
         </LinearLayout>
     </ScrollView>
