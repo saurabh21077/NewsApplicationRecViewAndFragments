@@ -1,9 +1,6 @@
-# assignment-0-saurabh21077
-assignment-0-saurabh21077 created by GitHub Classroom
+# News Application
 
-Assignment 3 - News Application
-
-Summary:
+## Summary:
 A news application that lists news and shows details of the news. This assignment builds upon
 assignment 2 where you started a service to download the images and you showed the title of
 recent news only. Now you need to show all the news in a list detail format. The list will show the
@@ -11,7 +8,7 @@ news number and the details will show the details of the news. The details part 
 body (news description) and an image along with the Title. Use RecyclerView to show the list of
 news. The list and details both should use Fragments. One should be able to put a comment on
 a news article.
-Description:
+## Description:
 A news application:
 1) List-detail view of the news. The list will show the news number and the details part will
 show the details of the new title, description body, image.
