@@ -17,26 +17,13 @@ Fragments.
 3) One should be able to put a comment on the news. This comment should be visible next
 time, one clicks on that news. Also, users can further edit that comment. That should be
 saved and updated comment will be seen in a subsequent visit.
-4) Compulsory part: the ability to put/edit one comment and show that on the next click on
+4) The ability to put/edit one comment and show that on the next click on
 that news number.
-5) Bonus: Ability to put/edit ratings to a news article and show the ratings on the next click
+5) Ability to put/edit ratings to a news article and show the ratings on the next click
 on that news number
-Rubrics:
-
-❖ List news number (RecyclerView) (3 marks)
-❖ Navigation from one fragment to another on clicking the news number (3 marks)
-❖ Able to comment on a news item (comment should get reflected in the fragment) (2 marks)
-❖ UI design using fragments. (2 marks)
-❖ Viva (all related concepts) (2 marks)
-❖ App functions properly (doesn’t crash) (2 marks)
-❖ Bonus: Ability to provide ratings (2 marks)
-
-Topics Covered:
+### Topics Covered:
 > Fragments - Must be used for the application UI.
 > Networking - Downloading of a news file.
 > Services - The service downloads the news files.
 > File Storage - The downloaded news file must be stored in an appropriate location as private
 to the application.
-
-NOTE:
-● Only Description and Rubrics are to be posted in the classroom.
